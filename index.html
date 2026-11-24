@@ -354,7 +354,7 @@ input:focus,select:focus,a:focus-visible,button:focus-visible{outline:2px solid 
     }
   }); });
   // cookie choice: nothing optional loads unless the visitor accepts.
-  function fbLoadAnalytics(){ /* add analytics or ad tags here; this runs only after Accept */ }
+  function fbLoadAnalytics(){ if(window.fbTagLoaded) return; window.fbTagLoaded = true; window.dataLayer = window.dataLayer || []; window.gtag = function(){ dataLayer.push(arguments); }; gtag('js', new Date()); var g = document.createElement('script'); g.async = true; g.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-5NMJ9RCG'; document.head.appendChild(g); }
   var bar = document.getElementById('fb-cookie'), choice = null;
   try { choice = localStorage.getItem('fb-cookie-choice'); } catch(e) {}
   function close(v){ try { localStorage.setItem('fb-cookie-choice', v); } catch(e) {} bar.hidden = true; document.body.classList.remove('fb-cookie-open'); if(v === 'accepted') fbLoadAnalytics(); }
